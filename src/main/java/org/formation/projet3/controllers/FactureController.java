@@ -65,7 +65,7 @@ public class FactureController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFacture(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteFacture(@PathVariable Integer id) {
         factures.removeIf(p -> p.getId().equals(id));
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }

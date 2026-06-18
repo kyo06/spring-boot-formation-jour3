@@ -1,7 +1,5 @@
 package org.formation.projet3;
 
-import org.formation.projet3.personne.PersonneBean;
-import org.formation.projet3.writer.IWriter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

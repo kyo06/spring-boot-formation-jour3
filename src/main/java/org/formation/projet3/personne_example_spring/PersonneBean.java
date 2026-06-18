@@ -1,4 +1,4 @@
-package org.formation.projet3.personne;
+package org.formation.projet3.personne_example_spring;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;

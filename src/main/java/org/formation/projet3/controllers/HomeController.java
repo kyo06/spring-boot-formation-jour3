@@ -1,12 +1,11 @@
 package org.formation.projet3.controllers;
 
-import org.formation.projet3.personne.PersonneBean;
+import org.formation.projet3.personne_example_spring.PersonneBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController

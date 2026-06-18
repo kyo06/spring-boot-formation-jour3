@@ -1,4 +1,4 @@
-package org.formation.projet3.writer;
+package org.formation.projet3.writer_example_spring;
 
 import org.springframework.stereotype.Component;
 

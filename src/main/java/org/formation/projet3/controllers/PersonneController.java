@@ -1,6 +1,9 @@
 package org.formation.projet3.controllers;
 
+import org.formation.projet3.dao.PersonneInMemoryDAO;
 import org.formation.projet3.dto.PersonneDto;
+import org.formation.projet3.services.PersonneService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -10,30 +13,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// @RestController est un composant Spring (stéréotype)
 @RestController
 @RequestMapping("/personnes")
 public class PersonneController {
 
-    private List<PersonneDto> personnes = new ArrayList<>(
-            Arrays.asList(
-                    PersonneDto.builder().id(1).nom("toto").age(10).build(),
-                    new PersonneDto(2, "tata", 25),
-                    PersonneDto.builder().id(3).nom("titi").age(30).build(),
-                    PersonneDto.builder().id(4).nom("tutu").age(23).build()
-            )
-    );
-
-    /*
-    @GetMapping("")
-    public List<PersonneDto> getPersonnes() {
-        return List.of(
-                PersonneDto.builder().nom("toto").age(10).build(),
-                new PersonneDto("tata", 25),
-                PersonneDto.builder().nom("titi").age(30).build(),
-                PersonneDto.builder().nom("tutu").age(23).build()
-        );
-    }
-    */
+    @Autowired
+    private PersonneService personneService;
 
     // --> /personnes
     // --> /personnes?nom=Dupont&age=15
@@ -45,31 +31,25 @@ public class PersonneController {
     ) {
         //Recherche la liste des personnes qui ont le nom ...
         if(nom == null && age == null) {
-            return personnes;
+            return personneService.findAll();
         }
-        return personnes.stream()
-                .filter(p -> nom != null && p.getNom().equals(nom))
-                .filter(p -> age != null && p.getAge() == age)
-                .toList();
+        return personneService.searchAllByCriteria(nom, age);
     }
 
     // --> /personnes/{id}
     //Path Variable
     @GetMapping("/{id}")
     public ResponseEntity<PersonneDto> getPersonne(@PathVariable Integer id) {
-        List<PersonneDto> listP = personnes
-                .stream()
-                .filter(p -> p.getId().equals(id))
-                .toList();
-        if(listP.isEmpty()) {
+        PersonneDto personneDto = personneService.findById(id);
+        if(personneDto == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok().body(listP.get(0));
+        return ResponseEntity.ok().body(personneDto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePersonne(@PathVariable Long id) {
-        personnes.removeIf(p -> p.getId().equals(id));
+    public ResponseEntity<Void> deletePersonne(@PathVariable Integer id) {
+        personneService.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
@@ -77,9 +57,7 @@ public class PersonneController {
     public PersonneDto addPersonne(
             @RequestBody PersonneDto personneDto
     ) {
-        personneDto.setId(personnes.size()+1);
-        personnes.add(personneDto);
-        return personneDto;
+        return personneService.add(personneDto);
     }
 
     @PutMapping("/{id}")
@@ -87,17 +65,11 @@ public class PersonneController {
             @PathVariable Integer id,
             @RequestBody PersonneDto personneDtoBody
     ) {
-        List<PersonneDto> listP = personnes
-                .stream()
-                .filter(p -> p.getId().equals(id))
-                .toList();
-        if(listP.isEmpty()) {
+        personneDtoBody.setId(id);
+        PersonneDto personneDtoFound = personneService.update(personneDtoBody);
+        if(personneDtoFound == null) {
             return ResponseEntity.notFound().build();
         }
-        PersonneDto personneDtoFound = listP.get(0);
-        personneDtoFound.setNom(personneDtoBody.getNom());
-        personneDtoFound.setAge(personneDtoBody.getAge());
-
         return ResponseEntity.ok(personneDtoFound);
     }
 
