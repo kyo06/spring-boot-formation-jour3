@@ -1,8 +1,10 @@
 package org.formation.projet3.services;
 
 import org.formation.projet3.dao.FactureInMemoryDAO;
+import org.formation.projet3.dao.IFactureDAO;
 import org.formation.projet3.dto.FactureDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +14,8 @@ import java.util.List;
 public class FactureService {
 
     @Autowired
-    private FactureInMemoryDAO factureDao;
+    @Qualifier("FactureJPADao")
+    private IFactureDAO factureDao;
 
     public List<FactureDto> findAll() {
         return factureDao.findAll();

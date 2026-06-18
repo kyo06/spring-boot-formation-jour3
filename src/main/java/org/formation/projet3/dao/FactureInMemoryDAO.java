@@ -10,7 +10,7 @@ import java.util.List;
 
 // @Repository est un composant Spring (stéréotype)
 @Repository("FactureInMemoryDAO")
-public class FactureInMemoryDAO {
+public class FactureInMemoryDAO implements IFactureDAO {
 
     private final List<FactureDto> factures = new ArrayList<>(
             Arrays.asList(
@@ -21,10 +21,12 @@ public class FactureInMemoryDAO {
             )
     );
 
+    @Override
     public List<FactureDto> findAll() {
         return factures;
     }
 
+    @Override
     public FactureDto findById(Integer id) {
         return factures.stream()
                 .filter(p -> p.getId().equals(id))
@@ -32,10 +34,12 @@ public class FactureInMemoryDAO {
                 .orElse(null);
     }
 
+    @Override
     public boolean deleteById(Integer id) {
         return factures.removeIf(p -> p.getId().equals(id));
     }
 
+    @Override
     public FactureDto save(FactureDto factureDto) {
         if(factureDto.getId() == null) {
             //Sauvegarde
