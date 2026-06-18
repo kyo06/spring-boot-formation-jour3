@@ -83,7 +83,7 @@ public class PersonneController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PersonneDto> addPersonne(
+    public ResponseEntity<PersonneDto> updatePersonne(
             @PathVariable Integer id,
             @RequestBody PersonneDto personneDtoBody
     ) {
