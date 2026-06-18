@@ -1,0 +1,58 @@
+###
+GET http://localhost:9091/notfound
+
+<> 2026-06-18T102203.404.txt
+
+###
+GET http://localhost:9091/unothorized
+
+<> 2026-06-18T104023.401.txt
+<> 2026-06-18T103950.404.json
+<> 2026-06-18T103938.404.json
+
+###
+GET http://localhost:9091/personne
+
+<> 2026-06-18T105314.200.xml
+<> 2026-06-18T105010.500.json
+<> 2026-06-18T104632.500.json
+<> 2026-06-18T104330.200.json
+
+###
+GET http://localhost:9091/personnes
+
+<> 2026-06-18T112641.200.json
+<> 2026-06-18T112547.200.json
+<> 2026-06-18T112537.200.json
+
+###
+DELETE http://localhost:9091/personnes/2
+
+###
+GET http://localhost:9091/personnes/1
+
+<> 2026-06-18T112741.200.json
+
+###
+POST http://localhost:9091/personnes
+Content-Type: application/json
+
+{
+  "nom": "moms",
+  "age": 35
+}
+
+<> 2026-06-18T113810.200.json
+<> 2026-06-18T113534.400.json
+
+###
+PUT http://localhost:9091/personnes/1
+Content-Type: application/json
+
+{
+  "nom": "Ooops",
+  "age": 41
+}
+
+<> 2026-06-18T114341.200.json
+<> 2026-06-18T114251.404.json
