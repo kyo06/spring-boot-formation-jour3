@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 
 // @Repository est un composant Spring (stéréotype)
-@Repository
+@Repository("FactureInMemoryDAO")
 public class FactureInMemoryDAO {
 
     private final List<FactureDto> factures = new ArrayList<>(

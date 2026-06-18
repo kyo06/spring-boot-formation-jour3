@@ -1,8 +1,10 @@
 package org.formation.projet3.services;
 
+import org.formation.projet3.dao.IPersonneDao;
 import org.formation.projet3.dao.PersonneInMemoryDAO;
 import org.formation.projet3.dto.PersonneDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,7 +14,8 @@ import java.util.List;
 public class PersonneService {
 
     @Autowired
-    private PersonneInMemoryDAO personneDao;
+    @Qualifier("PersonneJPADao")
+    private IPersonneDao personneDao;
 
     public List<PersonneDto> findAll() {
         return personneDao.findAll();

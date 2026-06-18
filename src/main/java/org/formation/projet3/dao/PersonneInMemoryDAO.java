@@ -14,7 +14,7 @@ public class PersonneInMemoryDAO {
     private List<PersonneDto> personnes = new ArrayList<>(
             Arrays.asList(
                     PersonneDto.builder().id(1).nom("toto").age(10).build(),
-                    new PersonneDto(2, "tata", 25),
+                    new PersonneDto(2, "tata", 25, true),
                     PersonneDto.builder().id(3).nom("titi").age(30).build(),
                     PersonneDto.builder().id(4).nom("tutu").age(23).build()
             )
