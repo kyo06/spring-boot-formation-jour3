@@ -3,18 +3,18 @@ package org.formation.projet3.services;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+@SpringBootTest
 public class StatServiceTest {
 
+    @Autowired
     StatService statService;
-
-    @BeforeEach
-    public void setup() {
-        statService = new StatService();
-    }
 
     @Test
     public void testGetTotal() {
+        assertNotNull(statService);
         double montantObtenu = statService.getTotal();
         double montantAttendu = 5500;
         assertEquals(montantObtenu, montantAttendu, "montant total doit être égale à " + montantAttendu);
@@ -29,7 +29,7 @@ public class StatServiceTest {
     }
 
     @Test
-    public void testnbUniqueClients() {
+    public void testNbUniqueClients() {
         double nombreObtenu = statService.nbUniqueClients();
         double nombreAttendu = 3;
         assertEquals(nombreObtenu, nombreAttendu, "doit être égale à " + nombreAttendu);
