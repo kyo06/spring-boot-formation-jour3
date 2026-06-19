@@ -1,7 +1,7 @@
 package org.formation.projet3.controllers;
 
 import org.formation.projet3.dto.FactureDto;
-import org.formation.projet3.services.FactureService;
+import org.formation.projet3.services.IFactureService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +14,7 @@ import java.util.List;
 public class FactureController {
 
     @Autowired
-    private FactureService factureService;
+    private IFactureService factureService;
 
     // --> /factures
     // --> /factures?idClient=1

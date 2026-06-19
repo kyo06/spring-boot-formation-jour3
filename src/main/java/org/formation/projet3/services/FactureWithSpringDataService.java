@@ -1,51 +1,48 @@
 package org.formation.projet3.services;
 
-import org.formation.projet3.dao.FactureInMemoryDAO;
 import org.formation.projet3.dao.IFactureDAO;
+import org.formation.projet3.dao.IFactureSpringDataDAO;
 import org.formation.projet3.dto.FactureDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 // @Service est un composant Spring (stéréotype)
 @Service
-public class FactureService implements IFactureService {
+@Primary
+public class FactureWithSpringDataService implements IFactureService {
 
     @Autowired
-    @Qualifier("FactureJPADao")
-    private IFactureDAO factureDao;
+    private IFactureSpringDataDAO factureDao;
 
-    @Override
     public List<FactureDto> findAll() {
-        return factureDao.findAll();
+        List<FactureDto> l = new ArrayList<>();
+        factureDao.findAll().forEach(l::add);
+        return l;
     }
 
-    @Override
     public List<FactureDto> searchAllByCriteria(Integer idClient) {
-        return factureDao.findAll().stream()
-                .filter(p -> p.getIdClient().equals(idClient))
-                .toList();
+        return factureDao.findByIdClient(idClient);
     }
 
-    @Override
     public FactureDto findById(Integer id) {
-        return factureDao.findById(id);
+        return factureDao.findById(id).orElse(null);
     }
 
-    @Override
     public boolean deleteById(Integer id) {
-        return factureDao.deleteById(id);
+        factureDao.deleteById(id);
+        return true;
     }
 
-    @Override
     public FactureDto add(FactureDto factureDto) {
         factureDto.setId(null);
         return factureDao.save(factureDto);
     }
 
-    @Override
     public FactureDto update(FactureDto factureDto) {
         return factureDao.save(factureDto);
     }
