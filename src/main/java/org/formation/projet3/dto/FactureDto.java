@@ -19,7 +19,10 @@ public class FactureDto {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer idClient;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "idClient")
+    private PersonneDto client;
+
     private String libelle;
     private Double montant;
 }

@@ -7,6 +7,8 @@ import java.util.List;
 public interface IFactureService {
     List<FactureDto> findAll();
 
+    List<FactureDto> findByClientId(Integer idClient);
+
     List<FactureDto> searchAllByCriteria(Integer idClient);
 
     FactureDto findById(Integer id);

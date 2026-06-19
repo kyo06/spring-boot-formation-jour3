@@ -2,7 +2,10 @@ package org.formation.projet3.services;
 
 import org.formation.projet3.dao.FactureInMemoryDAO;
 import org.formation.projet3.dao.IFactureDAO;
+import org.formation.projet3.dao.IPersonneDao;
+import org.formation.projet3.dao.IPersonneSpringDataDao;
 import org.formation.projet3.dto.FactureDto;
+import org.formation.projet3.dto.PersonneDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -23,10 +26,15 @@ public class FactureService implements IFactureService {
     }
 
     @Override
-    public List<FactureDto> searchAllByCriteria(Integer idClient) {
+    public List<FactureDto> findByClientId(Integer idClient) {
         return factureDao.findAll().stream()
-                .filter(p -> p.getIdClient().equals(idClient))
+                .filter(p -> p.getClient().getId().equals(idClient))
                 .toList();
+    }
+
+    @Override
+    public List<FactureDto> searchAllByCriteria(Integer idClient) {
+        return findByClientId(idClient);
     }
 
     @Override

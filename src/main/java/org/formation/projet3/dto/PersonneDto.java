@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 //@Data de Lombok permet d'injecter les méthodes :
@@ -30,6 +31,9 @@ public class PersonneDto {
 
     @Column(name="est_marie")
     private Boolean estMarie = false;
+
+    @OneToMany(mappedBy = "client")
+    List<FactureDto> factures = new ArrayList<>();
 
     /*
     public PersonneDto(String nom) {

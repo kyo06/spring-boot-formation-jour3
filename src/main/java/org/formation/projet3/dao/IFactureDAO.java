@@ -9,6 +9,8 @@ public interface IFactureDAO {
 
     FactureDto findById(Integer id);
 
+    List<FactureDto> findByClientId(Integer idClient);
+
     boolean deleteById(Integer id);
 
     FactureDto save(FactureDto factureDto);

@@ -14,10 +14,10 @@ public class FactureInMemoryDAO implements IFactureDAO {
 
     private final List<FactureDto> factures = new ArrayList<>(
             Arrays.asList(
-                    FactureDto.builder().id(1).idClient(1).libelle("Frais de déplacement").montant(1000.0).build(),
-                    new FactureDto(2, 1, "Prestation 1", 1500.0),
-                    FactureDto.builder().id(3).idClient(2).libelle("Prestation 3").montant(800.0).build(),
-                    FactureDto.builder().id(4).idClient(2).libelle("Prestation 4").montant(2200.0).build()
+                    FactureDto.builder().id(1).client(null).libelle("Frais de déplacement").montant(1000.0).build(),
+                    new FactureDto(2, null, "Prestation 1", 1500.0),
+                    FactureDto.builder().id(3).client(null).libelle("Prestation 3").montant(800.0).build(),
+                    FactureDto.builder().id(4).client(null).libelle("Prestation 4").montant(2200.0).build()
             )
     );
 
@@ -32,6 +32,13 @@ public class FactureInMemoryDAO implements IFactureDAO {
                 .filter(p -> p.getId().equals(id))
                 .findFirst()
                 .orElse(null);
+    }
+
+    @Override
+    public List<FactureDto> findByClientId(Integer idClient) {
+        return factures.stream()
+                .filter(p -> p.getClient().getId().equals(idClient))
+                .toList();
     }
 
     @Override
@@ -52,7 +59,6 @@ public class FactureInMemoryDAO implements IFactureDAO {
         //Update
         FactureDto toUpdate = this.findById(factureDto.getId());
         if(toUpdate != null) {
-            toUpdate.setIdClient(factureDto.getIdClient());
             toUpdate.setLibelle(factureDto.getLibelle());
             toUpdate.setMontant(factureDto.getMontant());
         }

@@ -25,6 +25,11 @@ public class FactureWithSpringDataService implements IFactureService {
         return l;
     }
 
+    @Override
+    public List<FactureDto> findByClientId(Integer idClient) {
+        return factureDao.findByIdClient(idClient);
+    }
+
     public List<FactureDto> searchAllByCriteria(Integer idClient) {
         return factureDao.findByIdClient(idClient);
     }

@@ -25,6 +25,15 @@ public class FactureJPADao implements IFactureDAO {
         return em.find(FactureDto.class, id);
     }
 
+    @Override
+    public List<FactureDto> findByClientId(Integer idClient) {
+        return em.createQuery("select f from FactureDto f", FactureDto.class)
+                .getResultList()
+                .stream()
+                .filter(p -> p.getClient().getId().equals(idClient))
+                .toList();
+    }
+
     public boolean deleteById(Integer id) {
         FactureDto factureDto = findById(id);
 
