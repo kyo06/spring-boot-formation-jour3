@@ -20,5 +20,20 @@ public class StatServiceTest {
         assertEquals(montantObtenu, montantAttendu, "montant total doit être égale à " + montantAttendu);
     }
 
+    @Test
+    public void testNbPrestations() {
+        //Voir dans libelle les prestations
+        double nombreObtenu = statService.nbPrestations();
+        double nombreAttendu = 3;
+        assertEquals(nombreObtenu, nombreAttendu, "doit être égale à " + nombreAttendu);
+    }
+
+    @Test
+    public void testnbUniqueClients() {
+        double nombreObtenu = statService.nbUniqueClients();
+        double nombreAttendu = 3;
+        assertEquals(nombreObtenu, nombreAttendu, "doit être égale à " + nombreAttendu);
+    }
+
 
 }

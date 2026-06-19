@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StatService {
@@ -28,10 +29,15 @@ public class StatService {
 
     public int nbPrestations() {
         //Voir dans libelle les prestations
-        return 0;
+        return (int) factures.stream()
+                .map(FactureDto::getLibelle)
+                .filter(s -> s.toLowerCase().contains("prestation"))
+                .count();
     }
 
     public int nbUniqueClients() {
-        return 0;
+        return factures.stream()
+                .map(f -> f.getClient().getId())
+                .collect(Collectors.toSet()).size();
     }
 }
