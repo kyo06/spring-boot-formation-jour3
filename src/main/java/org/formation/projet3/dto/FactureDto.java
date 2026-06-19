@@ -18,6 +18,7 @@ public class FactureDto {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
+
     private Integer idClient;
     private String libelle;
     private Double montant;

@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 //@Data de Lombok permet d'injecter les méthodes :
@@ -29,6 +30,7 @@ public class PersonneDto {
 
     @Column(name="est_marie")
     private Boolean estMarie = false;
+
     /*
     public PersonneDto(String nom) {
         this.nom = nom;

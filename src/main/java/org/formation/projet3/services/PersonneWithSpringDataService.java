@@ -1,52 +1,43 @@
 package org.formation.projet3.services;
 
-import org.formation.projet3.dao.IPersonneDao;
-import org.formation.projet3.dao.PersonneInMemoryDAO;
+import org.formation.projet3.dao.IPersonneSpringDataDao;
 import org.formation.projet3.dto.PersonneDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 // @Service est un composant Spring (stéréotype)
 @Service
-public class PersonneService implements IPersonneService {
+@Primary
+public class PersonneWithSpringDataService implements IPersonneService {
 
     @Autowired
-    @Qualifier("PersonneJPADao")
-    private IPersonneDao personneDao;
+    private IPersonneSpringDataDao personneDao;
 
-    @Override
     public List<PersonneDto> findAll() {
-        return personneDao.findAll();
+        return personneDao.findAll2();
     }
 
-    @Override
     public List<PersonneDto> searchAllByCriteria(String nom, Integer age) {
-        return personneDao.findAll().stream()
-                .filter(p -> p.getNom().equals(nom))
-                .filter(p -> p.getAge().equals(age))
-                .toList();
+        return personneDao.findByNomAndAge(nom, age);
     }
 
-    @Override
     public PersonneDto findById(Integer id) {
-        return personneDao.findById(id);
+        return personneDao.findById(id).orElse(null);
     }
 
-    @Override
     public boolean deleteById(Integer id) {
-        return personneDao.deleteById(id);
+        personneDao.deleteById(id);
+        return true;
     }
 
-    @Override
     public PersonneDto add(PersonneDto personneDto) {
         personneDto.setId(null);
         return personneDao.save(personneDto);
     }
 
-    @Override
     public PersonneDto update(PersonneDto personneDto) {
         return personneDao.save(personneDto);
     }

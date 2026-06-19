@@ -1,7 +1,7 @@
 package org.formation.projet3.controllers;
 
 import org.formation.projet3.dto.PersonneDto;
-import org.formation.projet3.services.PersonneService;
+import org.formation.projet3.services.IPersonneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.util.List;
 public class PersonneController {
 
     @Autowired
-    private PersonneService personneService;
+    private IPersonneService personneService;
 
     // --> /personnes
     // --> /personnes?nom=Dupont&age=15
